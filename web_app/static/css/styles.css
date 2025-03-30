@@ -1,0 +1,451 @@
+/* 
+ * styles.css - Στυλ για την εφαρμογή ανάλυσης συναισθημάτων με BERT
+ */
+
+/* Μεταβλητές */
+:root {
+  --primary-color: #3498db;
+  --primary-dark: #2980b9;
+  --secondary-color: #2ecc71; /* Πράσινο για θετικό */
+  --accent-color: #9b59b6;
+  --danger-color: #e74c3c; /* Κόκκινο για αρνητικό */
+  --warning-color: #f39c12;
+  --neutral-color: #FFAB40; /* Πορτοκαλί για ουδέτερο */
+  --light-gray: #f5f5f5;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #333333;
+  --text-color: #444444;
+  --border-radius: 4px;
+  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Επαναφορά βασικών στυλ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--light-gray);
+  padding-bottom: 2rem;
+}
+
+/* Βασικά στοιχεία */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+h1, h2, h3, h4 {
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* Επικεφαλίδα */
+header {
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+/* Πλοήγηση */
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav li:not(:last-child) {
+  margin-right: 1.5rem;
+}
+
+nav a {
+  color: var(--text-color);
+  font-weight: 500;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover, nav a.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+/* Κάρτες */
+.card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Ειδοποιήσεις */
+.alert {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+/* Φόρμες */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+textarea, input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #aaa;
+}
+
+small {
+  display: block;
+  margin-top: 0.25rem;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Κουμπιά */
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Καρτέλες */
+.tabs {
+  margin-bottom: 2rem;
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1px solid var(--medium-gray);
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab:hover {
+  color: var(--primary-color);
+}
+
+.tab.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 500;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Αποτελέσματα */
+.results-container {
+  animation: fadeIn 0.5s;
+}
+
+.result-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Καλύτερη διαχείριση αποστάσεων */
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.result-item {
+  flex: 1 1 auto; /* Επιτρέπει στα στοιχεία να αναπτυχθούν */
+  min-width: 150px; /* Ελάχιστο πλάτος για καλύτερη διάταξη */
+}
+
+.result-item .label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--dark-gray);
+}
+
+.result-item .value {
+  font-size: 1rem;
+}
+
+.text-quote {
+    font-style: italic;
+    color: #555;
+    padding-left: 10px;
+    border-left: 3px solid var(--medium-gray);
+    margin-top: 5px; 
+}
+
+/* Styling για το sentiment badge (μεμονωμένο αποτέλεσμα) */
+.sentiment-badge {
+    display: inline-block;
+    padding: 0.3em 0.7em;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--border-radius);
+    color: white; /* Κοινό χρώμα κειμένου */
+}
+
+.sentiment-badge.sentiment-positive {
+    background-color: var(--secondary-color);
+}
+
+.sentiment-badge.sentiment-negative {
+    background-color: var(--danger-color);
+}
+
+.sentiment-badge.sentiment-neutral {
+    background-color: var(--neutral-color);
+    color: var(--dark-gray); /* Πιο σκούρο κείμενο για καλύτερη αντίθεση με πορτοκαλί */
+}
+
+/* Χρώματα κειμένου για τον πίνακα μαζικής ανάλυσης */
+.text-positive {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.text-negative {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+.text-neutral {
+    color: var(--neutral-color);
+    font-weight: 500;
+}
+
+/* Διάταξη Περιοχής Γραφημάτων */
+.charts-container {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Προσαρμογή για ένα μόνο γράφημα */
+.charts-container.single-chart {
+    grid-template-columns: 1fr; /* Μόνο μία στήλη */
+}
+
+/* Προσαρμογή για δύο γραφήματα (αν χρειαστεί στο μέλλον) */
+/* @media (min-width: 768px) {
+  .charts-container {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+} */
+
+.chart-box {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--box-shadow);
+}
+
+.chart-box h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* Πίνακας Αποτελεσμάτων */
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.table th, .table td {
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.table tr:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Ένδειξη Φόρτωσης */
+.loading {
+  display: flex; /* Default είναι none, γίνεται flex από JS */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  flex-direction: column;
+  min-height: 150px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--primary-color);
+  animation: spin 1s ease infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Υποσέλιδο */
+footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  text-align: center;
+  border-top: 1px solid var(--medium-gray);
+  color: #666;
+  background-color: white;
+}
+
+/* Responsive Design */
+
+/* Απλοποίηση διάταξης γραφημάτων για οθόνες > 768px, αν χρειαστεί */
+/* @media (min-width: 768px) {
+  .charts-container {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+} */
+
+@media (min-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav {
+    margin-top: 0.5rem;
+  }
+  .result-item {
+     flex-basis: 100%; /* Ένα στοιχείο ανά γραμμή σε μικρές οθόνες */
+     margin-bottom: 1rem;
+  }
+  .tab {
+    padding: 0.5rem 1rem;
+  }
+} 

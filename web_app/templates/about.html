@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ανάλυση Συναισθημάτων - Πληροφορίες</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-comment-dots me-2"></i>
+                Ανάλυση Συναισθημάτων
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Αρχική</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('about') }}">Πληροφορίες</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Σχετικά με την Εφαρμογή
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-3">Ανάλυση Συναισθηματικού Περιεχομένου σε Μηνύματα και Κριτικές Πελατών</h5>
+                        
+                        <p>Το σύστημα αυτό αναπτύχθηκε για την ανάλυση συναισθηματικού περιεχομένου σε κείμενα, ειδικά σε μηνύματα και κριτικές πελατών.</p>
+                        
+                        <div class="alert alert-info">
+                            <h6 class="mb-2"><i class="fas fa-cogs me-2"></i>Τεχνολογίες που χρησιμοποιήθηκαν:</h6>
+                            <ul class="mb-0">
+                                <li>Python για την ανάπτυξη του συστήματος</li>
+                                <li>Scikit-learn και TensorFlow/Keras για μηχανική μάθηση</li>
+                                <li>Flask για τη διαδικτυακή εφαρμογή</li>
+                                <li>Plotly για τη δημιουργία διαδραστικών γραφημάτων</li>
+                                <li>Bootstrap για το σχεδιασμό της διεπαφής χρήστη</li>
+                            </ul>
+                        </div>
+                        
+                        <h5 class="mt-4">Λειτουργίες του Συστήματος</h5>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <i class="fas fa-comment me-2 text-primary"></i>
+                                            Ανάλυση Μεμονωμένου Κειμένου
+                                        </h6>
+                                        <p class="card-text">Η εφαρμογή μπορεί να αναλύσει κείμενο που εισάγετε απευθείας και να εντοπίσει το συναίσθημα και τις συναισθηματικές εκφράσεις που περιέχονται.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <i class="fas fa-file-csv me-2 text-primary"></i>
+                                            Μαζική Ανάλυση με CSV
+                                        </h6>
+                                        <p class="card-text">Μπορείτε να ανεβάσετε ένα αρχείο CSV με πολλαπλά κείμενα για να αναλυθούν όλα μαζί, λαμβάνοντας συγκεντρωτικά αποτελέσματα και στατιστικά.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <i class="fas fa-chart-pie me-2 text-primary"></i>
+                                            Οπτικοποίηση Αποτελεσμάτων
+                                        </h6>
+                                        <p class="card-text">Τα αποτελέσματα παρουσιάζονται με διαδραστικά γραφήματα που επιτρέπουν την καλύτερη κατανόηση των συναισθηματικών τάσεων.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <i class="fas fa-brain me-2 text-primary"></i>
+                                            Μηχανική Μάθηση
+                                        </h6>
+                                        <p class="card-text">Το σύστημα χρησιμοποιεί προηγμένους αλγόριθμους μηχανικής μάθησης για τον ακριβή εντοπισμό των συναισθημάτων σε κείμενα.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4">Οδηγίες Χρήσης</h5>
+                        
+                        <div class="accordion mt-3" id="instructionsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Ανάλυση Μεμονωμένου Κειμένου
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#instructionsAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Στην αρχική σελίδα, εισάγετε το κείμενο στο πεδίο "Κείμενο προς ανάλυση".</li>
+                                            <li>Πατήστε το κουμπί "Ανάλυση".</li>
+                                            <li>Τα αποτελέσματα θα εμφανιστούν παρακάτω, δείχνοντας το συναίσθημα (θετικό ή αρνητικό) και τα επιμέρους συναισθήματα που εντοπίστηκαν.</li>
+                                            <li>Τα διαδραστικά γραφήματα παρέχουν λεπτομερή ανάλυση των συναισθημάτων που εντοπίστηκαν.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Ανάλυση Αρχείου CSV
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#instructionsAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Προετοιμάστε ένα αρχείο CSV με μια στήλη "text" που περιέχει τα κείμενα προς ανάλυση.</li>
+                                            <li>Στην ενότητα "Ανάλυση Αρχείου CSV", ανεβάστε το αρχείο CSV.</li>
+                                            <li>Πατήστε το κουμπί "Ανάλυση Αρχείου".</li>
+                                            <li>Τα συγκεντρωτικά αποτελέσματα θα εμφανιστούν με γραφήματα και έναν πίνακα με λεπτομερή στοιχεία για κάθε κείμενο.</li>
+                                            <li>Μπορείτε να δείτε περισσότερες λεπτομέρειες για κάθε κείμενο πατώντας το κουμπί λεπτομερειών.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-question-circle me-2"></i>
+                            Συχνές Ερωτήσεις
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeadingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                                        Πώς λειτουργεί η ανάλυση συναισθημάτων;
+                                    </button>
+                                </h2>
+                                <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p>Η ανάλυση συναισθημάτων βασίζεται σε αλγόριθμους μηχανικής μάθησης που έχουν εκπαιδευτεί σε μεγάλες συλλογές κειμένων. Το σύστημα αναλύει το κείμενο εισόδου, εντοπίζοντας λέξεις και φράσεις που εκφράζουν συναισθήματα, και στη συνέχεια ταξινομεί το κείμενο ως θετικό ή αρνητικό. Επιπλέον, εντοπίζει συγκεκριμένες συναισθηματικές εκφράσεις όπως χαρά, θυμό, λύπη, κλπ.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeadingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                        Ποια μορφή πρέπει να έχει το αρχείο CSV;
+                                    </button>
+                                </h2>
+                                <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p>Το αρχείο CSV πρέπει να περιέχει τουλάχιστον μία στήλη με όνομα "text" που περιέχει τα κείμενα προς ανάλυση. Για παράδειγμα:</p>
+                                        <pre>text
+"Το προϊόν είναι εξαιρετικό, είμαι πολύ ευχαριστημένος."
+"Δεν μου άρεσε καθόλου η εξυπηρέτηση, απογοητεύτηκα."
+"Καλό προϊόν, αλλά η παράδοση καθυστέρησε."</pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeadingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                        Ποιες γλώσσες υποστηρίζονται;
+                                    </button>
+                                </h2>
+                                <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p>Το σύστημα έχει εκπαιδευτεί κυρίως σε ελληνικά και αγγλικά κείμενα. Η ανάλυση είναι πιο ακριβής σε αυτές τις γλώσσες. Ωστόσο, μπορεί να αναλύσει κείμενα και σε άλλες γλώσσες με μειωμένη ακρίβεια.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeadingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                        Πόσο ακριβής είναι η ανάλυση;
+                                    </button>
+                                </h2>
+                                <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p>Το σύστημα επιτυγχάνει ακρίβεια περίπου 85-90% στην ταξινόμηση θετικών/αρνητικών κειμένων. Ωστόσο, η ακρίβεια μπορεί να ποικίλλει ανάλογα με το είδος του κειμένου. Κείμενα με πιο σύνθετες εκφράσεις, ειρωνεία ή σαρκασμό μπορεί να είναι πιο δύσκολο να αναλυθούν με ακρίβεια.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-3 mt-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                <small class="text-muted">© 2024 - Ανάλυση Συναισθηματικού Περιεχομένου σε Μηνύματα και Κριτικές Πελατών</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

@@ -1,0 +1,114 @@
+# Εικονικό περιβάλλον Python
+.venv/
+venv/
+ENV/
+env/
+
+# Αρχεία Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Αρχεία notebook/jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_metadata
+
+# Logs και αρχεία προσωρινής αποθήκευσης
+logs/
+*.log
+*.bak
+*.tmp
+*.temp
+
+# Αρχεία ρυθμίσεων IDE και editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.vs/
+*.sublime-workspace
+*.sublime-project
+
+# Αρχεία λειτουργικού συστήματος
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ΣΗΜΑΝΤΙΚΟ: Μεγάλα αρχεία που προκαλούν πρόβλημα στο push
+# Μοντέλα BERT - πολύ μεγάλα (εκατοντάδες MB)
+models/fine_tuned_bert_3class/**/*.bin
+models/fine_tuned_bert_3class/**/*.pt
+models/fine_tuned_bert_3class/**/*.pth
+models/fine_tuned_bert_3class/pytorch_model.bin
+models/fine_tuned_bert_3class/model.safetensors
+models/fine_tuned_bert_3class/tokenizer.json
+models/fine_tuned_bert_3class/config.json
+models/fine_tuned_bert_3class/special_tokens_map.json
+models/fine_tuned_bert_3class/tokenizer_config.json
+models/fine_tuned_bert_3class/
+
+# Datasets μεγάλου μεγέθους
+data/**/*.csv
+data/**/*.json
+data/**/*.xlsx
+data/**/*.parquet
+data/processed/
+
+# Cache μεγάλου μεγέθους
+.cache/
+.cache/huggingface/
+
+# Εξαιρέσεις - αρχεία που ΘΕΛΕΙΣ να συμπεριλάβεις παρά το pattern
+# Διατήρησε μικρά έγγραφα περιγραφής
+!results/advanced_metrics_description.txt
+!results/metrics_description.txt
+!README.md
+!requirements.txt
+
+# PyTorch checkpoints - Εξαιρείς μεγάλα αρχεία μοντέλων
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+*.hdf5
+*.model
+*.joblib
+*.pkl
+*.pickle
+
+# Προσθήκη για τη συγκεκριμένη δομή του project σου
+runs/
+results/*.png
+web_app/static/temp/
+
+# Δεδομένα μεγάλου όγκου (προαιρετικά, ανάλογα με την περίπτωση)
+# Αν τα datasets σου είναι μεγάλα (>100MB), καλό είναι να μην τα ανεβάζεις στο GitHub
+# Αλλά στην περίπτωση μιας πτυχιακής, μπορεί να θέλεις να συμπεριλάβεις μικρά datasets
+# data/*.csv
+# data/*.json
+# data/*.txt
+# data/raw/ 

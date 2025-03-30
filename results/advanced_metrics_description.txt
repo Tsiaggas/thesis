@@ -1,0 +1,69 @@
+# Περιγραφή των προχωρημένων μετρικών και γραφημάτων
+
+Το παρόν αρχείο περιγράφει τα γραφήματα και τις προχωρημένες μετρικές αξιολόγησης που δημιουργούνται από το script `advanced_metrics.py` για το μοντέλο ανάλυσης συναισθήματος 3-κλάσεων.
+
+## 1. ROC Curves (roc_curves.png)
+
+Οι καμπύλες ROC (Receiver Operating Characteristic) δείχνουν τη σχέση μεταξύ του True Positive Rate (Sensitivity) και του False Positive Rate (1-Specificity) σε διάφορα κατώφλια ταξινόμησης. Για προβλήματα πολλαπλών κλάσεων, χρησιμοποιείται η προσέγγιση "One-vs-Rest".
+
+- **Άξονας X**: False Positive Rate (FPR)
+- **Άξονας Y**: True Positive Rate (TPR)
+- **Καμπύλες**: Μία για κάθε κλάση (Negative, Positive, Neutral)
+- **Μετρική AUC**: Η περιοχή κάτω από την καμπύλη - όσο υψηλότερη (πλησιέστερη στο 1.0), τόσο καλύτερη η απόδοση του μοντέλου για τη συγκεκριμένη κλάση.
+- **Διαγώνια γραμμή**: Αντιπροσωπεύει έναν τυχαίο ταξινομητή (AUC = 0.5)
+
+## 2. Precision-Recall Curves (precision_recall_curves.png)
+
+Οι καμπύλες Precision-Recall δείχνουν την ισορροπία μεταξύ precision (ακρίβεια) και recall (ανάκληση) σε διάφορα κατώφλια ταξινόμησης. Είναι ιδιαίτερα χρήσιμες για μη ισορροπημένα σύνολα δεδομένων.
+
+- **Άξονας X**: Recall
+- **Άξονας Y**: Precision
+- **Καμπύλες**: Μία για κάθε κλάση (Negative, Positive, Neutral)
+- **Μετρική AP**: Average Precision - υψηλότερες τιμές υποδεικνύουν καλύτερη απόδοση
+
+## 3. Confusion Matrix (confusion_matrix_normalized.png και confusion_matrix_absolute.png)
+
+Ο Confusion Matrix δείχνει πόσα δείγματα από κάθε πραγματική κλάση ταξινομήθηκαν σε κάθε προβλεφθείσα κλάση.
+
+### 3.1 Normalized Confusion Matrix
+- Δείχνει τα ποσοστά των δειγμάτων κάθε πραγματικής κλάσης που ταξινομήθηκαν σε κάθε προβλεφθείσα κλάση
+- Η διαγώνιος δείχνει το ποσοστό των σωστά ταξινομημένων δειγμάτων για κάθε κλάση
+
+### 3.2 Absolute Confusion Matrix
+- Δείχνει τον ακριβή αριθμό δειγμάτων που ταξινομήθηκαν σε κάθε συνδυασμό πραγματικής και προβλεφθείσας κλάσης
+
+## 4. Metrics per Class (classification_report.txt, classification_report.csv, class_metrics.png)
+
+Περιλαμβάνει αναλυτικές μετρικές απόδοσης για κάθε κλάση:
+- **Precision**: Ποσοστό των προβλέψεων της κλάσης που ήταν σωστές
+- **Recall**: Ποσοστό των πραγματικών δειγμάτων της κλάσης που εντοπίστηκαν
+- **F1-score**: Αρμονικός μέσος Precision και Recall
+- **Support**: Αριθμός δειγμάτων κάθε κλάσης στο σύνολο δοκιμής
+
+## 5. Probability Distribution (prediction_distribution.png)
+
+Ιστογράμματα που δείχνουν την κατανομή των προβλεπόμενων πιθανοτήτων για κάθε κλάση:
+- **Άξονας X**: Probability (0.0 - 1.0)
+- **Άξονας Y**: Frequency
+- **Κατακόρυφη γραμμή στο 0.5**: Ενδεικτικό κατώφλι απόφασης
+
+## 6. Learning Curve (learning_curve.png)
+
+Η Learning Curve δείχνει την εξέλιξη του training loss, validation loss και validation accuracy κατά τη διάρκεια της εκπαίδευσης:
+- **Άξονας X**: Training Steps
+- **Άξονας Y (αριστερά)**: Loss
+- **Άξονας Y (δεξιά)**: Accuracy
+
+Η ιδανική καμπύλη μάθησης δείχνει μείωση τόσο του training όσο και του validation loss, ενώ η accuracy αυξάνεται. Εάν το validation loss αρχίσει να αυξάνεται ενώ το training loss συνεχίζει να μειώνεται, αυτό μπορεί να υποδεικνύει overfitting.
+
+-----------
+
+## Χρήση του script
+
+Για να δημιουργήσετε αυτές τις οπτικοποιήσεις, εκτελέστε το script με την εντολή:
+
+```bash
+python utils/advanced_metrics.py
+```
+
+Απαιτούμενες βιβλιοθήκες: torch, transformers, pandas, numpy, matplotlib, scikit-learn, seaborn 

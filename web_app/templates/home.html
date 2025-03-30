@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Εφαρμογή ανάλυσης συναισθημάτων με BERT για κείμενα πελατών - 3 Κλάσεις">
+    <title>Ανάλυση Συναισθημάτων (3 Κλάσεις)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ανάλυση Συναισθημάτων (3 Κλάσεις)</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Αρχική</a></li>
+                    <li><a href="/about">Πληροφορίες</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if not model_loaded %}
+        <div class="alert alert-warning">
+            <p><strong>Προσοχή:</strong> Το μοντέλο BERT δεν έχει φορτωθεί. Η εφαρμογή δεν θα μπορεί να εκτελέσει αναλύσεις.</p>
+            <p>Παρακαλώ επικοινωνήστε με τον διαχειριστή του συστήματος.</p>
+        </div>
+        {% endif %}
+
+        <div class="tabs">
+            <div class="tab-header">
+                <div class="tab active" data-tab="single">Ανάλυση Κειμένου</div>
+                <div class="tab" data-tab="batch">Μαζική Ανάλυση</div>
+            </div>
+            
+            <div class="tab-content">
+                <!-- Φόρμα για μεμονωμένο κείμενο -->
+                <div class="tab-pane active" id="single-tab">
+                    <div class="card">
+                        <h2>Ανάλυση Συναισθημάτων σε Κείμενο</h2>
+                        <p>Εισάγετε το κείμενο που θέλετε να αναλύσετε:</p>
+                        
+                        <form id="analyze-form">
+                            <div class="form-group">
+                                <textarea id="text-input" name="text" rows="5" placeholder="Γράψτε ή επικολλήστε ένα κείμενο εδώ για ανάλυση συναισθημάτων..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="analyze-btn" {% if not model_loaded %}disabled{% endif %}>
+                                    Ανάλυση Συναισθημάτων
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="single-results" class="results-container" style="display: none;">
+                        <div class="card">
+                            <h2>Αποτελέσματα Ανάλυσης</h2>
+                            
+                            <div class="result-summary">
+                                <div class="result-item">
+                                    <span class="label">Εισαχθέν Κείμενο:</span>
+                                    <blockquote id="analyzed-text" class="value text-quote"></blockquote>
+                                </div>
+                                <div class="result-item">
+                                    <span class="label">Επικρατέστερο Συναίσθημα:</span>
+                                    <span id="sentiment-result" class="value sentiment-badge"></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="label">Πιθανότητα Επικράτησης:</span>
+                                    <span id="probability-result" class="value"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="charts-container single-chart">
+                                <div class="chart-box">
+                                    <div id="probability-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="single-error" class="alert alert-danger" style="display: none;"></div>
+                    <div id="single-loading" class="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Ανάλυση σε εξέλιξη...</p>
+                    </div>
+                </div>
+                
+                <!-- Φόρμα για μαζική ανάλυση -->
+                <div class="tab-pane" id="batch-tab">
+                    <div class="card">
+                        <h2>Μαζική Ανάλυση Συναισθημάτων</h2>
+                        <p>Ανεβάστε ένα αρχείο CSV που περιέχει στήλη με όνομα "text" (ή παρόμοιο, π.χ., "review"):</p>
+                        
+                        <form id="batch-form" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" id="csv-file" name="file" accept=".csv" required />
+                                <small>Το αρχείο πρέπει να είναι CSV και να περιέχει μια στήλη με κείμενο.</small>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="batch-btn" {% if not model_loaded %}disabled{% endif %}>
+                                    Εκτέλεση Μαζικής Ανάλυσης
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="batch-results" class="results-container" style="display: none;">
+                        <div class="card">
+                            <h2>Συγκεντρωτικά Αποτελέσματα</h2>
+                            
+                            <div class="result-summary">
+                                <div class="result-item">
+                                    <span class="label">Σύνολο κειμένων στο αρχείο:</span>
+                                    <span id="total-texts" class="value"></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="label">Αναλύθηκαν:</span>
+                                    <span id="analyzed-texts" class="value"></span>
+                                </div>
+                                <div class="result-item sentiment-distribution">
+                                    <span class="label">Κατανομή:</span>
+                                    <span id="sentiment-counts" class="value"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="charts-container single-chart">
+                                <div class="chart-box">
+                                    <div id="sentiment-distribution-chart"></div>
+                                </div>
+                            </div>
+                            
+                            <div id="results-table-container" style="margin-top: 20px;">
+                                <h3>Λεπτομερή Αποτελέσματα (έως 500 πρώτες εγγραφές)</h3>
+                                <div class="table-responsive">
+                                    <table id="results-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Κείμενο</th>
+                                                <th>Συναίσθημα</th>
+                                                <th>Πιθανότητα (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="results-table-body">
+                                            <!-- Εδώ θα προστεθούν τα αποτελέσματα δυναμικά -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="batch-error" class="alert alert-danger" style="display: none;"></div>
+                    <div id="batch-loading" class="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Η μαζική ανάλυση εκτελείται... (Μπορεί να διαρκέσει λίγο)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ 2024 }} Πανεπιστήμιο Πειραιώς - Ανάλυση Συναισθημάτων</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        function showError(type, message) {
+            const errorDiv = document.getElementById(`${type}-error`);
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById(`${type}-loading`).style.display = 'none';
+            document.getElementById(`${type}-results`).style.display = 'none';
+        }
+        
+        function displaySingleResults(result) {
+            const resultsDiv = document.getElementById('single-results');
+            const sentimentSpan = document.getElementById('sentiment-result');
+            const probabilitySpan = document.getElementById('probability-result');
+            const chartDiv = document.getElementById('probability-chart');
+            const analyzedTextDiv = document.getElementById('analyzed-text');
+
+            analyzedTextDiv.textContent = result.text;
+
+            sentimentSpan.textContent = result.sentiment_label;
+            probabilitySpan.textContent = `${result.probability.toFixed(2)}%`;
+
+            sentimentSpan.classList.remove('sentiment-positive', 'sentiment-negative', 'sentiment-neutral');
+            if (result.sentiment_label === 'Θετικό') {
+                sentimentSpan.classList.add('sentiment-positive');
+            } else if (result.sentiment_label === 'Αρνητικό') {
+                sentimentSpan.classList.add('sentiment-negative');
+            } else if (result.sentiment_label === 'Ουδέτερο') {
+                sentimentSpan.classList.add('sentiment-neutral');
+            }
+
+            if (result.probability_chart) {
+                Plotly.newPlot(chartDiv, result.probability_chart.data, result.probability_chart.layout);
+            } else {
+                 chartDiv.innerHTML = '<p>Δεν ήταν δυνατή η δημιουργία του γραφήματος πιθανοτήτων.</p>';
+            }
+            
+            resultsDiv.style.display = 'block';
+            document.getElementById('single-error').style.display = 'none';
+        }
+
+        function displayBatchResults(result) {
+            const resultsDiv = document.getElementById('batch-results');
+            const totalSpan = document.getElementById('total-texts');
+            const analyzedSpan = document.getElementById('analyzed-texts');
+            const countsSpan = document.getElementById('sentiment-counts');
+            const chartDiv = document.getElementById('sentiment-distribution-chart');
+            const tableBody = document.getElementById('results-table-body');
+
+            totalSpan.textContent = result.total_texts_in_file;
+            analyzedSpan.textContent = result.analyzed_texts;
+            
+            let countsText = '';
+            if (result.sentiment_counts) {
+                countsText = `Θετικά: ${result.sentiment_counts['Θετικό'] || 0}, Αρνητικά: ${result.sentiment_counts['Αρνητικό'] || 0}, Ουδέτερα: ${result.sentiment_counts['Ουδέτερο'] || 0}`;
+            }
+            countsSpan.textContent = countsText;
+
+            if (result.sentiment_distribution_chart) {
+                 Plotly.newPlot(chartDiv, result.sentiment_distribution_chart.data, result.sentiment_distribution_chart.layout);
+            } else {
+                chartDiv.innerHTML = '<p>Δεν ήταν δυνατή η δημιουργία του γραφήματος κατανομής.</p>';
+            }
+            
+            tableBody.innerHTML = '';
+            if (result.results && result.results.length > 0) {
+                const resultsToShow = result.results.slice(0, 500);
+                resultsToShow.forEach((item, index) => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = index + 1;
+                    
+                    const textCell = row.insertCell(1);
+                    textCell.textContent = item.text.length > 100 ? item.text.substring(0, 100) + '...' : item.text;
+                    textCell.title = item.text;
+                    
+                    const labelCell = row.insertCell(2);
+                    labelCell.textContent = item.sentiment_label;
+                    if (item.sentiment_label === 'Θετικό') labelCell.classList.add('text-positive');
+                    else if (item.sentiment_label === 'Αρνητικό') labelCell.classList.add('text-negative');
+                    else if (item.sentiment_label === 'Ουδέτερο') labelCell.classList.add('text-neutral');
+
+                    row.insertCell(3).textContent = `${item.probability.toFixed(2)}%`;
+                });
+            } else {
+                const row = tableBody.insertRow();
+                const cell = row.insertCell(0);
+                cell.colSpan = 4;
+                cell.textContent = 'Δεν βρέθηκαν αποτελέσματα για εμφάνιση στον πίνακα.';
+                cell.style.textAlign = 'center';
+            }
+
+            resultsDiv.style.display = 'block';
+            document.getElementById('batch-error').style.display = 'none';
+        }
+
+        document.getElementById('analyze-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const textInput = document.getElementById('text-input');
+            const text = textInput.value.trim();
+            const resultsDiv = document.getElementById('single-results');
+            const loadingDiv = document.getElementById('single-loading');
+            const errorDiv = document.getElementById('single-error');
+            
+            if (!text) {
+                showError('single', 'Παρακαλώ εισάγετε ένα κείμενο για ανάλυση.');
+                return;
+            }
+            
+            errorDiv.style.display = 'none';
+            resultsDiv.style.display = 'none';
+            loadingDiv.style.display = 'flex';
+            
+            try {
+                const formData = new FormData();
+                formData.append('text', text);
+                
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displaySingleResults(result);
+                } else {
+                    showError('single', result.message || 'Σφάλμα κατά την ανάλυση του κειμένου.');
+                }
+            } catch (error) {
+                showError('single', 'Σφάλμα επικοινωνίας με τον διακομιστή ή μη έγκυρο JSON.');
+                console.error('Fetch error:', error);
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        });
+
+        document.getElementById('batch-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('csv-file');
+            const file = fileInput.files[0];
+            const resultsDiv = document.getElementById('batch-results');
+            const loadingDiv = document.getElementById('batch-loading');
+            const errorDiv = document.getElementById('batch-error');
+            
+            if (!file) {
+                showError('batch', 'Παρακαλώ επιλέξτε ένα αρχείο CSV.');
+                return;
+            }
+             if (!file.name.toLowerCase().endsWith('.csv')) {
+                showError('batch', 'Παρακαλώ επιλέξτε ένα αρχείο με επέκταση .csv.');
+                return;
+            }
+            
+            errorDiv.style.display = 'none';
+            resultsDiv.style.display = 'none';
+            loadingDiv.style.display = 'flex';
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                const response = await fetch('/analyze_batch', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayBatchResults(result);
+                } else {
+                    showError('batch', result.message || 'Σφάλμα κατά τη μαζική ανάλυση.');
+                }
+            } catch (error) {
+                showError('batch', 'Σφάλμα επικοινωνίας με τον διακομιστή ή μη έγκυρο JSON.');
+                console.error('Fetch error:', error);
+            } finally {
+                loadingDiv.style.display = 'none';
+                fileInput.value = '';
+            }
+        });
+
+    </script>
+</body>
+</html> 
