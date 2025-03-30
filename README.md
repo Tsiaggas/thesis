@@ -9,7 +9,7 @@
 ## Πρόσβαση στο Μοντέλο
 
 Το εκπαιδευμένο μοντέλο είναι διαθέσιμο στο Hugging Face Hub:
-https://huggingface.co/your-username/skroutz-sentiment-3class
+https://huggingface.co/tsiaggas/fine-tuned-for-sentiment-3class
 
 Μπορεί να χρησιμοποιηθεί απευθείας με τον παρακάτω κώδικα Python:
 
@@ -17,8 +17,8 @@ https://huggingface.co/your-username/skroutz-sentiment-3class
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 # Φόρτωση μοντέλου και tokenizer
-model = AutoModelForSequenceClassification.from_pretrained("your-username/skroutz-sentiment-3class")
-tokenizer = AutoTokenizer.from_pretrained("your-username/skroutz-sentiment-3class")
+model = AutoModelForSequenceClassification.from_pretrained("tsiaggas/fine-tuned-for-sentiment-3class")
+tokenizer = AutoTokenizer.from_pretrained("tsiaggas/fine-tuned-for-sentiment-3class")
 ```
 
 ## Δομή Repository
