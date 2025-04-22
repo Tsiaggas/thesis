@@ -30,6 +30,7 @@ wheels/
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 *.ipynb_metadata
+notebooks/
 
 # Logs και αρχεία προσωρινής αποθήκευσης
 logs/
@@ -104,6 +105,12 @@ data/processed/
 runs/
 results/*.png
 web_app/static/temp/
+
+# Αρχεία και φάκελοι που δεν θέλουμε να ανεβούν στο GitHub
+docs/cleanup_guide.md
+results/diagnostics/
+utils/cleanup_project.py
+utils/model_diagnostics.py
 
 # Δεδομένα μεγάλου όγκου (προαιρετικά, ανάλογα με την περίπτωση)
 # Αν τα datasets σου είναι μεγάλα (>100MB), καλό είναι να μην τα ανεβάζεις στο GitHub
