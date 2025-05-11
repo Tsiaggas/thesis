@@ -82,6 +82,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+4. Install additional libraries for advanced sentiment analysis:
+
+```bash
+python web_app/setup_nlp.py
+```
+
 ### Running the Web Application
 
 The web application can use either the local model (if available) or the model from the Hugging Face Hub:
@@ -108,6 +114,10 @@ python utils/advanced_metrics.py
 - **Evaluation and Visualization**: Calculation and visualization of advanced evaluation metrics
 - **Demonstration Web Application**: Interactive application to showcase the model's functionality
 - **Hugging Face Hub Upload**: Ability to share the model via the Hugging Face Hub
+- **Advanced Sentiment Analysis**: Multiple methods for sentiment analysis including:
+  - VADER (Valence Aware Dictionary and sEntiment Reasoner) lexicon-based sentiment analysis
+  - NRCLex for specific emotion detection (joy, trust, fear, etc.)
+  - LSA (Latent Semantic Analysis) for topic discovery in text corpora
 
 ## Results
 
@@ -201,7 +211,7 @@ cd greek-sentiment-analysis
 # Δημιουργία περιβάλλοντος
 python -m venv .venv
 
-# Ενεργοποίηση στα Windows
+# Ενεργοποίηση σε Windows
 .\.venv\Scripts\activate
 
 # Ενεργοποίηση σε Linux/Mac
@@ -212,6 +222,12 @@ source .venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
+```
+
+4. Εγκαταστήστε τις επιπλέον βιβλιοθήκες για προηγμένη ανάλυση συναισθημάτων:
+
+```bash
+python web_app/setup_nlp.py
 ```
 
 ### Εκτέλεση Web Εφαρμογής
@@ -233,13 +249,17 @@ python app.py
 python utils/advanced_metrics.py
 ```
 
-## Βασικές Λειτουργίες
+## Κύρια Χαρακτηριστικά
 
-- **Fine-tuning μοντέλου BERT**: Προσαρμογή του BERT για την ταξινόμηση συναισθήματος σε 3 κλάσεις
-- **Επεξεργασία και συνδυασμός datasets**: Συνδυασμός δεδομένων για τη δημιουργία ενός ισορροπημένου dataset 3 κλάσεων
-- **Αξιολόγηση και οπτικοποίηση**: Υπολογισμός και οπτικοποίηση προηγμένων μετρικών αξιολόγησης
-- **Web εφαρμογή επίδειξης**: Διαδραστική εφαρμογή για την επίδειξη της λειτουργίας του μοντέλου
+- **Fine-tuning BERT Μοντέλου**: Προσαρμογή του BERT για ταξινόμηση συναισθήματος 3 κλάσεων
+- **Επεξεργασία και Συνδυασμός Δεδομένων**: Συνδυασμός δεδομένων για τη δημιουργία ισορροπημένου dataset 3 κλάσεων
+- **Αξιολόγηση και Οπτικοποίηση**: Υπολογισμός και οπτικοποίηση προηγμένων μετρικών αξιολόγησης
+- **Web Εφαρμογή Επίδειξης**: Διαδραστική εφαρμογή για την επίδειξη της λειτουργικότητας του μοντέλου
 - **Ανέβασμα στο Hugging Face Hub**: Δυνατότητα διαμοιρασμού του μοντέλου μέσω του Hugging Face Hub
+- **Προηγμένη Ανάλυση Συναισθημάτων**: Πολλαπλές μέθοδοι ανάλυσης συναισθημάτων συμπεριλαμβανομένων:
+  - VADER (Valence Aware Dictionary and sEntiment Reasoner) ανάλυση βάσει λεξικού
+  - NRCLex για εντοπισμό συγκεκριμένων συναισθημάτων (χαρά, εμπιστοσύνη, φόβος, κλπ.)
+  - LSA (Λανθάνουσα Σημασιολογική Ανάλυση) για την ανακάλυψη θεμάτων σε συλλογές κειμένων
 
 ## Αποτελέσματα
 

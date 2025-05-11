@@ -10,7 +10,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -30,7 +29,6 @@ wheels/
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 *.ipynb_metadata
-notebooks/
 
 # Logs και αρχεία προσωρινής αποθήκευσης
 logs/
@@ -111,6 +109,35 @@ docs/cleanup_guide.md
 results/diagnostics/
 utils/cleanup_project.py
 utils/model_diagnostics.py
+
+# --- ΠΡΟΣΘΗΚΕΣ ΓΙΑ ΤΟ PROJECT --- #
+
+# React Frontend
+web_app/react-frontend/node_modules/
+web_app/react-frontend/build/
+
+# Δημιουργημένα CSV αρχεία στον ριζικό φάκελο
+reviews_for_testing.csv
+short_reviews_for_testing.csv
+frontend_reviews.csv
+complete_dataset.csv
+
+# Δημιουργημένα Python test scripts στον ριζικό φάκελο
+create_reviews.py
+create_short_reviews.py
+create_frontend_csv.py
+create_complete_dataset.py
+test_api.py
+test_negative.py
+test_batch_analysis.py
+test_short_reviews.py
+
+# Δημιουργημένο αρχείο κειμένου από το proposal
+proposal_full.txt
+
+# Ειδικά για Python projects (αν υπάρχουν στον ριζικό φάκελο)
+/build/ 
+/dist/
 
 # Δεδομένα μεγάλου όγκου (προαιρετικά, ανάλογα με την περίπτωση)
 # Αν τα datasets σου είναι μεγάλα (>100MB), καλό είναι να μην τα ανεβάζεις στο GitHub

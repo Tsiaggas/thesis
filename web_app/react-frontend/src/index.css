@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.sentiment-positive {
+  color: #28a745;
+}
+
+.sentiment-negative {
+  color: #dc3545;
+}
+
+.sentiment-neutral {
+  color: #fd7e14;
+}
+
+.sentiment-badge-positive {
+  background-color: #66BB6A;
+  color: white;
+}
+
+.sentiment-badge-negative {
+  background-color: #EF5350;
+  color: white;
+}
+
+.sentiment-badge-neutral {
+  background-color: #FFAB40;
+  color: white;
+}
+
+.app-header {
+  background: linear-gradient(to right, #3a6186, #89253e);
+  color: white;
+}
+
+.main-container {
+  min-height: calc(100vh - 70px);
+}
+
+.chart-container {
+  height: 400px;
+  width: 100%;
+} 
